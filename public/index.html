@@ -2,14 +2,34 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Đọc Email</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gmail Reader</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>Đọc Email</h1>
-  <input type="text" id="emailInput" placeholder="Nhập email Gmail">
-  <button onclick="readEmails()">Đọc Email</button>
-  <div id="emailList"></div>
+  <div class="app-container">
+    <header class="header">
+      <h1>Gmail Reader</h1>
+    </header>
+    
+    <div class="main-content">
+      <div class="email-list-container">
+        <div class="email-input-container">
+          <input type="text" id="emailInput" placeholder="Nhập email Gmail">
+          <button onclick="readEmails()">Đọc Email</button>
+        </div>
+        <ul id="emailList" class="email-list"></ul>
+      </div>
+      
+      <div class="email-content-container" id="emailContent">
+        <div class="no-email-selected">
+          Chọn một email để xem nội dung
+        </div>
+      </div>
+    </div>
+  </div>
+  
   <script src="script.js"></script>
 </body>
 </html>
