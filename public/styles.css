@@ -1,19 +1,20 @@
 :root {
-    --gmail-red: #d93025;
-    --gmail-blue: #1a73e8;
-    --gmail-light-gray: #f1f3f4;
-    --gmail-border: #dadce0;
-    --gmail-text: #202124;
-    --gmail-secondary-text: #5f6368;
-    --gmail-background: #f6f8fc;
+    --dark-blue: #0a1929;
+    --darker-blue: #071422;
+    --highlight-blue: #1a73e8;
+    --text-color: #ffffff;
+    --secondary-text: #a0b0c0;
+    --border-color: #1e3a5f;
+    --button-green: #4caf50;
+    --button-hover: #45a049;
   }
   
   body {
     font-family: "Roboto", Arial, sans-serif;
     margin: 0;
     padding: 0;
-    color: var(--gmail-text);
-    background-color: var(--gmail-background);
+    color: var(--text-color);
+    background-color: var(--dark-blue);
     height: 100vh;
     overflow: hidden;
   }
@@ -28,16 +29,54 @@
   .header {
     display: flex;
     align-items: center;
-    padding: 8px 16px;
-    background-color: white;
-    box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3);
+    padding: 0;
+    background-color: var(--darker-blue);
+    border-bottom: 1px solid var(--border-color);
     z-index: 10;
   }
   
-  .header h1 {
-    font-size: 22px;
-    margin: 0;
-    color: var(--gmail-red);
+  .header-tabs {
+    display: flex;
+  }
+  
+  .header-tab {
+    padding: 15px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+  }
+  
+  .header-tab.active {
+    border-bottom: 3px solid var(--highlight-blue);
+    background-color: var(--dark-blue);
+  }
+  
+  .header-actions {
+    margin-left: auto;
+    padding-right: 15px;
+    display: flex;
+    gap: 10px;
+  }
+  
+  .action-button {
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .action-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .sub-header {
+    padding: 15px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: var(--dark-blue);
+    border-bottom: 1px solid var(--border-color);
   }
   
   .main-content {
@@ -48,8 +87,8 @@
   
   .email-list-container {
     width: 280px;
-    background-color: white;
-    border-right: 1px solid var(--gmail-border);
+    background-color: var(--dark-blue);
+    border-right: 1px solid var(--border-color);
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -57,24 +96,33 @@
   
   .email-input-container {
     padding: 16px;
-    border-bottom: 1px solid var(--gmail-border);
-    background-color: white;
+    border-bottom: 1px solid var(--border-color);
+    background-color: var(--dark-blue);
+  }
+  
+  .email-input-label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: var(--secondary-text);
   }
   
   .email-input-container input {
     width: 100%;
     padding: 10px;
-    border: 1px solid var(--gmail-border);
+    border: 1px solid var(--border-color);
     border-radius: 4px;
     font-size: 14px;
     box-sizing: border-box;
+    background-color: var(--darker-blue);
+    color: var(--text-color);
   }
   
   .email-input-container button {
     width: 100%;
     margin-top: 8px;
     padding: 10px;
-    background-color: var(--gmail-blue);
+    background-color: var(--button-green);
     color: white;
     border: none;
     border-radius: 4px;
@@ -84,7 +132,7 @@
   }
   
   .email-input-container button:hover {
-    background-color: #1765cc;
+    background-color: var(--button-hover);
   }
   
   .email-list {
@@ -97,18 +145,18 @@
   
   .email-item {
     padding: 12px 16px;
-    border-bottom: 1px solid var(--gmail-border);
+    border-bottom: 1px solid var(--border-color);
     cursor: pointer;
     transition: background-color 0.2s;
   }
   
   .email-item:hover {
-    background-color: var(--gmail-light-gray);
+    background-color: rgba(255, 255, 255, 0.05);
   }
   
   .email-item.active {
-    background-color: #e8f0fe;
-    border-left: 4px solid var(--gmail-blue);
+    background-color: rgba(26, 115, 232, 0.2);
+    border-left: 4px solid var(--highlight-blue);
     padding-left: 12px;
   }
   
@@ -126,14 +174,14 @@
   }
   
   .email-item-date {
-    color: var(--gmail-secondary-text);
+    color: var(--secondary-text);
     font-size: 12px;
     white-space: nowrap;
     margin-left: 8px;
   }
   
   .email-item-preview {
-    color: var(--gmail-secondary-text);
+    color: var(--secondary-text);
     font-size: 13px;
     white-space: nowrap;
     overflow: hidden;
@@ -144,14 +192,14 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    background-color: white;
-    overflow: hidden; /* Prevent outer scrollbar */
+    background-color: var(--dark-blue);
+    overflow: hidden;
   }
   
   .email-header {
     padding: 16px 20px;
-    border-bottom: 1px solid var(--gmail-border);
-    background-color: white;
+    border-bottom: 1px solid var(--border-color);
+    background-color: var(--dark-blue);
   }
   
   .email-subject {
@@ -162,19 +210,18 @@
   
   .email-from {
     font-size: 14px;
-    color: var(--gmail-secondary-text);
+    color: var(--secondary-text);
     margin-bottom: 4px;
   }
   
   .email-date {
     font-size: 12px;
-    color: var(--gmail-secondary-text);
+    color: var(--secondary-text);
   }
   
   .email-body {
     flex: 1;
-    overflow: hidden; /* Prevent outer scrollbar */
-    padding: 0;
+    overflow: auto; /* Đảm bảo có thanh cuộn khi nội dung dài */
   }
   
   .email-body iframe {
@@ -189,7 +236,7 @@
     align-items: center;
     height: 100%;
     font-size: 16px;
-    color: var(--gmail-secondary-text);
+    color: var(--secondary-text);
   }
   
   .no-email-selected {
@@ -198,7 +245,7 @@
     align-items: center;
     height: 100%;
     font-size: 16px;
-    color: var(--gmail-secondary-text);
+    color: var(--secondary-text);
   }
   
   @media (max-width: 768px) {
@@ -210,7 +257,7 @@
       width: 100%;
       height: 40%;
       border-right: none;
-      border-bottom: 1px solid var(--gmail-border);
+      border-bottom: 1px solid var(--border-color);
     }
   
     .email-content-container {

@@ -3,21 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gmail Reader</title>
+  <title>Đọc Hòm Thư</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="app-container">
     <header class="header">
-      <h1>Gmail Reader</h1>
+      <div class="header-tabs">
+        <div class="header-tab active">Đọc Hòm Thư</div>
+        <div class="header-tab">Đọc Gmail</div>
+        <div class="header-tab">Đọc Hotmail</div>
+      </div>
+      <div class="header-actions">
+        <button class="action-button">Làm mới</button>
+        <button class="action-button">Trợ giúp</button>
+      </div>
     </header>
+    
+    <div class="sub-header">Đọc Gmail</div>
     
     <div class="main-content">
       <div class="email-list-container">
         <div class="email-input-container">
-          <input type="text" id="emailInput" placeholder="Nhập email Gmail">
-          <button onclick="readEmails()">Đọc Email</button>
+          <label class="email-input-label">Địa chỉ Gmail:</label>
+          <input type="text" id="emailInput" placeholder="Nhập địa chỉ Gmail">
+          <button onclick="readEmails()">Đọc Gmail</button>
         </div>
         <ul id="emailList" class="email-list"></ul>
       </div>
@@ -31,5 +42,6 @@
   </div>
   
   <script src="script.js"></script>
+  <script src="email-viewer.js"></script>
 </body>
 </html>
