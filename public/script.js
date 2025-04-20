@@ -1,30 +1,59 @@
 // Handle tab switching
 document.addEventListener("DOMContentLoaded", () => {
-    const tabs = document.querySelectorAll(".header-tab")
+    const navLinks = document.querySelectorAll(".nav-link")
   
-    tabs.forEach((tab) => {
-      tab.addEventListener("click", function () {
-        // Remove active class from all tabs
-        tabs.forEach((t) => t.classList.remove("active"))
+    navLinks.forEach((link) => {
+      link.addEventListener("click", function (e) {
+        e.preventDefault()
   
-        // Add active class to clicked tab
+        // Remove active class from all links
+        navLinks.forEach((l) => l.classList.remove("active"))
+  
+        // Add active class to clicked link
         this.classList.add("active")
   
-        // Update sub-header text to match active tab
-        const subHeader = document.querySelector(".sub-header")
-        subHeader.textContent = this.textContent
+        // Update content based on selected tab
+        const tabId = this.getAttribute("href").substring(1)
+  
+        // Here you would update the content based on the selected tab
+        // For now, we'll just update the input label and button text
+        const emailInputLabel = document.querySelector(".email-input-label")
+        const submitButton = document.querySelector(".email-input-container button")
+  
+        if (tabId === "gmail") {
+          emailInputLabel.textContent = "Địa chỉ Gmail:"
+          submitButton.textContent = "Đọc Gmail"
+        } else if (tabId === "hotmail") {
+          emailInputLabel.textContent = "Địa chỉ Hotmail:"
+          submitButton.textContent = "Đọc Hotmail"
+        } else if (tabId === "2fa") {
+          emailInputLabel.textContent = "Địa chỉ Email 2FA:"
+          submitButton.textContent = "Lấy mã 2FA"
+        }
       })
     })
   
     // Set up refresh button
     const refreshButton = document.querySelector(".action-button:first-child")
-    refreshButton.addEventListener("click", () => {
-      const email = document.getElementById("emailInput").value
-      if (email) {
-        readEmails()
-      } else {
-        alert("Vui lòng nhập địa chỉ email!")
-      }
+    if (refreshButton) {
+      refreshButton.addEventListener("click", () => {
+        const email = document.getElementById("emailInput").value
+        if (email) {
+          readEmails()
+        } else {
+          alert("Vui lòng nhập địa chỉ email!")
+        }
+      })
+    }
+  
+    // Set up language switcher
+    const languages = document.querySelectorAll(".language")
+    languages.forEach((lang) => {
+      lang.addEventListener("click", function (e) {
+        e.preventDefault()
+        languages.forEach((l) => l.classList.remove("active"))
+        this.classList.add("active")
+      })
     })
   })
   
@@ -110,12 +139,12 @@ document.addEventListener("DOMContentLoaded", () => {
       listItem.className = `email-item ${email.id === selectedEmailId ? "active" : ""}`
       listItem.setAttribute("data-id", email.id)
       listItem.innerHTML = `
-        <div class="email-item-header">
-          <div class="email-item-subject">${email.subject || "(Không có tiêu đề)"}</div>
-          <div class="email-item-date">${formatDate(email.date)}</div>
-        </div>
-        <div class="email-item-preview">${preview}</div>
-      `
+          <div class="email-item-header">
+            <div class="email-item-subject">${email.subject || "(Không có tiêu đề)"}</div>
+            <div class="email-item-date">${formatDate(email.date)}</div>
+          </div>
+          <div class="email-item-preview">${preview}</div>
+        `
       listItem.addEventListener("click", () => selectEmail(email.id))
       emailList.appendChild(listItem)
     })
@@ -142,13 +171,13 @@ document.addEventListener("DOMContentLoaded", () => {
   
     // Create simplified email view with just header and content
     emailContent.innerHTML = `
-      <div class="email-header">
-        <div class="email-subject">${email.subject || "(Không có tiêu đề)"}</div>
-        <div class="email-from">Từ: ${email.from || "Người gửi"}</div>
-        <div class="email-date">${formatDate(email.date)}</div>
-      </div>
-      <div class="email-body" id="emailBody"></div>
-    `
+        <div class="email-header">
+          <div class="email-subject">${email.subject || "(Không có tiêu đề)"}</div>
+          <div class="email-from">Từ: ${email.from || "Người gửi"}</div>
+          <div class="email-date">${formatDate(email.date)}</div>
+        </div>
+        <div class="email-body" id="emailBody"></div>
+      `
   
     // Render email content in iframe
     const emailBody = document.getElementById("emailBody")
@@ -189,51 +218,51 @@ document.addEventListener("DOMContentLoaded", () => {
       // If it's not a complete HTML document, wrap it
       if (!content.includes("<html")) {
         content = `
-          <html>
-            <head>
-              <meta charset="UTF-8">
-              <meta name="viewport" content="width=device-width, initial-scale=1.0">
-              <style>
-                body {
-                  font-family: Arial, sans-serif;
-                  margin: 0;
-                  padding: 20px;
-                  color: #202124;
-                  font-size: 14px;
-                  line-height: 1.5;
-                  overflow-y: auto;
-                }
-                img {
-                  max-width: 100%;
-                  height: auto;
-                }
-                a {
-                  color: #1a73e8;
-                  text-decoration: none;
-                }
-                a:hover {
-                  text-decoration: underline;
-                }
-                table {
-                  max-width: 100%;
-                }
-                td, th {
-                  padding: 4px;
-                }
-                /* Hide tracking pixels */
-                img[width="1"], img[height="1"], 
-                img[width="0"], img[height="0"],
-                img[style*="width:1px"], img[style*="height:1px"],
-                img[style*="width: 1px"], img[style*="height: 1px"] {
-                  display: none !important;
-                }
-              </style>
-            </head>
-            <body>
-              ${content}
-            </body>
-          </html>
-        `
+            <html>
+              <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <style>
+                  body {
+                    font-family: Arial, sans-serif;
+                    margin: 0;
+                    padding: 20px;
+                    color: #202124;
+                    font-size: 14px;
+                    line-height: 1.5;
+                    overflow-y: auto;
+                  }
+                  img {
+                    max-width: 100%;
+                    height: auto;
+                  }
+                  a {
+                    color: #1a73e8;
+                    text-decoration: none;
+                  }
+                  a:hover {
+                    text-decoration: underline;
+                  }
+                  table {
+                    max-width: 100%;
+                  }
+                  td, th {
+                    padding: 4px;
+                  }
+                  /* Hide tracking pixels */
+                  img[width="1"], img[height="1"], 
+                  img[width="0"], img[height="0"],
+                  img[style*="width:1px"], img[style*="height:1px"],
+                  img[style*="width: 1px"], img[style*="height: 1px"] {
+                    display: none !important;
+                  }
+                </style>
+              </head>
+              <body>
+                ${content}
+              </body>
+            </html>
+          `
       } else {
         // If it's a complete HTML document, we need to modify it to fix common issues
         // Add base target to open links in new tab
@@ -251,34 +280,34 @@ document.addEventListener("DOMContentLoaded", () => {
         content = content.replace(
           "</head>",
           `
-          <style>
-            body {
-              margin: 0;
-              padding: 20px;
-              font-family: Arial, sans-serif;
-              overflow-y: auto;
-            }
-            img {
-              max-width: 100%;
-              height: auto;
-            }
-            table {
-              max-width: 100%;
-            }
-            /* Make sure content doesn't overflow */
-            * {
-              max-width: 100%;
-              box-sizing: border-box;
-            }
-            /* Hide tracking pixels */
-            img[width="1"], img[height="1"], 
-            img[width="0"], img[height="0"],
-            img[style*="width:1px"], img[style*="height:1px"],
-            img[style*="width: 1px"], img[style*="height: 1px"] {
-              display: none !important;
-            }
-          </style>
-        </head>`,
+            <style>
+              body {
+                margin: 0;
+                padding: 20px;
+                font-family: Arial, sans-serif;
+                overflow-y: auto;
+              }
+              img {
+                max-width: 100%;
+                height: auto;
+              }
+              table {
+                max-width: 100%;
+              }
+              /* Make sure content doesn't overflow */
+              * {
+                max-width: 100%;
+                box-sizing: border-box;
+              }
+              /* Hide tracking pixels */
+              img[width="1"], img[height="1"], 
+              img[width="0"], img[height="0"],
+              img[style*="width:1px"], img[style*="height:1px"],
+              img[style*="width: 1px"], img[style*="height: 1px"] {
+                display: none !important;
+              }
+            </style>
+          </head>`,
         )
       }
     } else {
@@ -291,40 +320,40 @@ document.addEventListener("DOMContentLoaded", () => {
   
       // Convert plain text to HTML
       content = `
-        <html>
-          <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <style>
-              body {
-                font-family: Arial, sans-serif;
-                margin: 0;
-                padding: 20px;
-                color: #202124;
-                font-size: 14px;
-                line-height: 1.5;
-                overflow-y: auto;
-              }
-              a {
-                color: #1a73e8;
-                text-decoration: none;
-              }
-              a:hover {
-                text-decoration: underline;
-              }
-              pre {
-                white-space: pre-wrap;
-                word-wrap: break-word;
-                margin: 0;
-                font-family: Arial, sans-serif;
-              }
-            </style>
-          </head>
-          <body>
-            <pre>${processedText.replace(/https?:\/\/[^\s]+/g, '<a href="$&" target="_blank">$&</a>')}</pre>
-          </body>
-        </html>
-      `
+          <html>
+            <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <style>
+                body {
+                  font-family: Arial, sans-serif;
+                  margin: 0;
+                  padding: 20px;
+                  color: #202124;
+                  font-size: 14px;
+                  line-height: 1.5;
+                  overflow-y: auto;
+                }
+                a {
+                  color: #1a73e8;
+                  text-decoration: none;
+                }
+                a:hover {
+                  text-decoration: underline;
+                }
+                pre {
+                  white-space: pre-wrap;
+                  word-wrap: break-word;
+                  margin: 0;
+                  font-family: Arial, sans-serif;
+                }
+              </style>
+            </head>
+            <body>
+              <pre>${processedText.replace(/https?:\/\/[^\s]+/g, '<a href="$&" target="_blank">$&</a>')}</pre>
+            </body>
+          </html>
+        `
     }
   
     // Write content to iframe
